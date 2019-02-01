@@ -4,7 +4,7 @@
 #
 Name     : spyrk
 Version  : 0.0.4
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Summary  : Python module for Spark devices
@@ -15,16 +15,17 @@ Requires: spyrk-python = %{version}-%{release}
 Requires: spyrk-python3 = %{version}-%{release}
 Requires: cached-property
 Requires: hammock
-Requires: python-mock
 BuildRequires : buildreq-distutils3
 BuildRequires : cached-property
 BuildRequires : hammock
 BuildRequires : python-mock
 
 %description
+Spyrk
 =====
-        
-        Python module for Spark devices.
+Python module for Spark devices.
+Use it as follow:
+..  code:: python
 
 %package license
 Summary: license components for the spyrk package.
@@ -60,7 +61,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546121939
+export SOURCE_DATE_EPOCH=1549030025
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
