@@ -1,0 +1,15 @@
+--- spyrk-0.0.4/setup.py~	2016-04-20 22:12:16.000000000 +0000
++++ spyrk-0.0.4/setup.py	2019-02-01 14:52:25.666783479 +0000
+@@ -94,10 +94,9 @@
+     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
+     install_requires=[
+         'hammock',
+-        'cached-property',
+-        'mock'
++        'cached-property'
+     ],
+     
+-    tests_require = ['pytest'],
++    tests_require = ['pytest', 'mock'],
+     cmdclass = { 'test': PyTest },
+ )
