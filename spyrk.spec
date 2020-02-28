@@ -4,12 +4,12 @@
 #
 Name     : spyrk
 Version  : 0.0.4
-Release  : 7
+Release  : 8
 URL      : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Summary  : Python module for Spark devices
 Group    : Development/Tools
-License  : LGPL-3.0
+License  : GPL-3.0 LGPL-3.0
 Requires: spyrk-license = %{version}-%{release}
 Requires: spyrk-python = %{version}-%{release}
 Requires: spyrk-python3 = %{version}-%{release}
@@ -24,9 +24,110 @@ Patch1: fixdeps.patch
 %description
 Spyrk
 =====
+
 Python module for Spark devices.
+
 Use it as follow:
+
 ..  code:: python
+
+    from spyrk import SparkCloud
+
+    USERNAME = 'he.ho@example.com'
+    PASSWORD = 'pasSs'
+    ACCESS_TOKEN = '12adza445452d4za524524524d5z2a4'
+
+    spark = SparkCloud(USERNAME, PASSWORD)
+    # Or
+    spark = SparkCloud(ACCESS_TOKEN)
+
+    # List devices
+    print spark.devices
+
+    # Access device
+    spark.devices['captain_hamster']
+    # Or, shortcut form
+    spark.captain_hamster
+
+    # List functions and variables of a device
+    print spark.captain_hamster.functions
+    print spark.captain_hamster.variables
+
+    # Tell if a device is connected
+    print spark.captain_hamster.connected
+
+    # Call a function
+    spark.captain_hamster.digitalwrite('D7', 'HIGH')
+    print spark.captain_hamster.analogread('A0')
+    # (or any of your own custom function)
+
+    # Get variable value
+    spark.captain_hamster.myvariable
+
+Currently supporting:
+---------------------
+
+* Initialisation by username/password (generating a new access token every time).
+* Initialisation by access token (get it from the Build Web IDE).
+* Automatic discovery of devices.
+* Automatic discovery of functions and variables in a device.
+* Calling a function.
+* Accessing a variable value.
+
+Not yet supported:
+------------------
+
+* Subscribing and publishing events
+* Any PUT method of the API (like uploading a firmware or application.cpp). That would be cool though.
+
+Installation
+------------
+
+..  code:: bash
+
+    $ pip install spyrk
+
+Licensing and contributions
+---------------------------
+
+Spyrk is licensed under LGPLv3 and welcome contributions following the `C4.1 - Collective Code Construction Contract <http://rfc.zeromq.org/spec:22>`_ process.
+
+
+Individual Contributors
+=======================
+
+A list of people who have contributed to Spyrk in order of their first
+contribution.
+
+Format: ``Name-or-Well-known-alias <email@domain.tld> (url)``
+
+* Axel Voitier <axel.voitier@gmail.com>
+* Wojtek Siudzinski <admin@suda.pl>
+
+Please, add yourself when you contribute!
+
+
+CHANGELOG
+=========
+
+0.0.3 - ?
+--------------------
+
+- Fixed Python 3 support
+
+0.0.2 - 30 July 2014
+--------------------
+
+- Complying to Flake8 code-style checker
+- Added accessing variable value
+- Added `requires_deep_update` to Device declaration
+- Fixed logging in bug and updated to support `requires_deep_update` value for the device
+- Added setup.py and refactored main package as Spyrk.SparkCloud
+
+0.0.1 - 26 January 2014
+-----------------------
+
+- Initial dump of code
 
 %package license
 Summary: license components for the spyrk package.
@@ -49,6 +150,7 @@ python components for the spyrk package.
 Summary: python3 components for the spyrk package.
 Group: Default
 Requires: python3-core
+Provides: pypi(spyrk)
 
 %description python3
 python3 components for the spyrk package.
@@ -56,21 +158,29 @@ python3 components for the spyrk package.
 
 %prep
 %setup -q -n spyrk-0.0.4
+cd %{_builddir}/spyrk-0.0.4
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1549033143
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1582917686
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/spyrk
-cp LICENSE %{buildroot}/usr/share/package-licenses/spyrk/LICENSE
+cp %{_builddir}/spyrk-0.0.4/LICENSE %{buildroot}/usr/share/package-licenses/spyrk/84dca3c4c2a464f21963f4ebaefbd0042094d286
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -81,7 +191,7 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/spyrk/LICENSE
+/usr/share/package-licenses/spyrk/84dca3c4c2a464f21963f4ebaefbd0042094d286
 
 %files python
 %defattr(-,root,root,-)
