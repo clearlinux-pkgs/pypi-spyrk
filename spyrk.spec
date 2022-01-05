@@ -4,7 +4,7 @@
 #
 Name     : spyrk
 Version  : 0.0.4
-Release  : 23
+Release  : 24
 URL      : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Summary  : Python module for Spark devices
@@ -13,12 +13,10 @@ License  : GPL-3.0 LGPL-3.0
 Requires: spyrk-license = %{version}-%{release}
 Requires: spyrk-python = %{version}-%{release}
 Requires: spyrk-python3 = %{version}-%{release}
-Requires: cached-property
-Requires: hammock
 BuildRequires : buildreq-distutils3
-BuildRequires : cached-property
-BuildRequires : hammock
-BuildRequires : python-mock
+BuildRequires : pypi(cached_property)
+BuildRequires : pypi(hammock)
+BuildRequires : pypi(mock)
 Patch1: fixdeps.patch
 
 %description
@@ -66,7 +64,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1603405154
+export SOURCE_DATE_EPOCH=1641426970
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
