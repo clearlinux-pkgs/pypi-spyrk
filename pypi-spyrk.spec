@@ -4,7 +4,7 @@
 #
 Name     : pypi-spyrk
 Version  : 0.0.4
-Release  : 26
+Release  : 27
 URL      : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Summary  : Python module for Spark devices
@@ -67,7 +67,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1653059626
+export SOURCE_DATE_EPOCH=1656369659
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -102,7 +102,7 @@ export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
 python3 -tt setup.py build install --root=%{buildroot}-v3
 popd
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
