@@ -4,7 +4,7 @@
 #
 Name     : pypi-spyrk
 Version  : 0.0.4
-Release  : 30
+Release  : 31
 URL      : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/b9/8d168df047a4aa9318ab701fd8232f17ed0153ca5ba45685bb6fbb59319a/spyrk-0.0.4.tar.gz
 Summary  : Python module for Spark devices
